@@ -29,7 +29,7 @@ def generate_launch_description():
             package='tf2_ros',
             executable='static_transform_publisher',
             arguments='0.0 0.0 0.0 0.0 0.0 0.0 map odom'.split(' '),
-            parameters=[parameter_file],
+            parameters=[parameter_file,{'use_sim_time': True}],
             output='screen'
             ),
         # Node(
@@ -44,7 +44,7 @@ def generate_launch_description():
         Node(
             package='lio_sam',
             executable='lio_sam_imuPreintegration',
-            name='lio_sam_imuPreintegration',
+            # name='lio_sam_imuPreintegration',
             parameters=[parameter_file],
             output='screen'
         ),
@@ -74,6 +74,7 @@ def generate_launch_description():
             executable='rviz2',
             name='rviz2',
             arguments=['-d', rviz_config_file],
+            parameters=[{'use_sim_time': True}],
             output='screen'
         )
     ])

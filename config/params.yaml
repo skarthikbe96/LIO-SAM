@@ -3,13 +3,18 @@
 
     # Topics
     pointCloudTopic: "/front_laser/points"                   # Point cloud data
-    imuTopic: "/imu_sensor/imu"                        # IMU data
-    odomTopic: "/odometry/filtered"                    # IMU pre-preintegration odometry, same frequency as IMU
+    # imuTopic: "panda_mounted_husky/base_link/imu_sensor"                        # IMU data
+    imuTopic: "/imu_sensor/imu"
+    odomTopic: "/lio_sam/odom"                    # IMU pre-preintegration odometry, same frequency as IMU
     gpsTopic: "odometry/gpsz"                    # GPS odometry topic from navsat, see module_navsat.launch file
+    use_sim_time: true
 
     # Frames
+    # lidarFrame: "front_laser_link"
+    baselinkFrame: "base_footprint"
     lidarFrame: "panda_mounted_husky/base_link/front_laser"
-    baselinkFrame: "base_link"
+    # baselinkFrame: "panda_mounted_husky/base_link"
+    imuFrame: "panda_mounted_husky/base_link/imu_sensor"
     odometryFrame: "odom"
     mapFrame: "map"
 
@@ -42,18 +47,21 @@
     imuAccBiasN: 4.01e-05                           # approx from dyn bias 3.75e-4, tau=175 s
     imuGyrBiasN: 1.41e-06                           # approx from dyn bias 2e-5,  tau=400 s
 
-    imuGravity: 9.80511
-    imuRPYWeight: 0.01
+    imuGravity: 9.805
+    imuRPYWeight: 0.0
 
     # LiDAR -> IMU (from your model: LiDAR at 0.424, 0, 0.387 on base; IMU at base origin)
 
-    extrinsicTrans:  [ 0.424,  0.0,  0.387 ] 
-    extrinsicRot:    [ 1.0, 0.0, 0.0,
-                       0.0, 1.0, 0.0,
-                       0.0, 0.0, 1.0 ]        
-    extrinsicRPY:    [ 1.0, 0.0, 0.0,
-                       0.0, 1.0, 0.0,
-                       0.0, 0.0, 1.0 ]        
+    extrinsicTrans: [-0.424, 0.0, -0.387]
+
+    extrinsicRot: [1.0, 0.0, 0.0,
+                  0.0, 1.0, 0.0,
+                  0.0, 0.0, 1.0]
+
+    extrinsicRPY: [1.0, 0.0, 0.0,
+                  0.0, 1.0, 0.0,
+                  0.0, 0.0, 1.0]
+      
 
     # LOAM feature threshold
     edgeThreshold: 1.0
@@ -67,8 +75,8 @@
     mappingSurfLeafSize: 0.4                      # default: 0.4 - outdoor, 0.2 - indoor
 
     # robot motion constraint (in case you are using a 2D robot)
-    z_tollerance: 1000.0                          # meters
-    rotation_tollerance: 1000.0                   # radians
+    z_tollerance: 0.01                          # meters
+    rotation_tollerance: 0.05                   # radians
 
     # CPU Params
     numberOfCores: 4                              # number of cores for mapping optimization

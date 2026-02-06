@@ -1,0 +1,7 @@
+# Archive files
+*.zip
+*.zipx
+*.z??
+
+# PyTorch model files
+*.pt
