@@ -1,0 +1,230 @@
+/**:
+  ros__parameters:
+
+    # ============================================================
+    # GENERAL
+    # ============================================================
+
+    use_sim_time: true
+
+
+    # ============================================================
+    # TOPICS - robot2
+    # ============================================================
+
+    pointCloudTopic: "/robot2/front_laser/points"
+
+    imuTopic: "/robot2/imu_sensor"
+
+    # LIO-SAM IMU preintegration odometry
+    odomTopic: "/robot2/lio_sam/odom"
+
+    # GPS not currently used
+    gpsTopic: "/robot2/odometry/gps"
+
+
+    # ============================================================
+    # FRAMES - robot2
+    # ============================================================
+
+    lidarFrame: "robot2/front_laser_link"
+
+    baselinkFrame: "robot2/base_footprint"
+
+    imuFrame: "robot2/imu_link"
+
+    odometryFrame: "robot2/odom"
+
+    mapFrame: "robot2/map"
+
+
+    # ============================================================
+    # GPS SETTINGS
+    # ============================================================
+
+    useImuHeadingInitialization: false
+
+    useGpsElevation: false
+
+    gpsCovThreshold: 2.0
+
+    poseCovThreshold: 25.0
+
+
+    # ============================================================
+    # POINT CLOUD / DESKEW
+    # ============================================================
+
+    # Your Gazebo PointCloud2 contains:
+    # x
+    # y
+    # z
+    # intensity
+    # ring
+    useCloudRing: true
+
+    # VLP-16-style lidar running at 10 Hz
+    scanPeriod: 0.1
+
+
+    # ============================================================
+    # PCD EXPORT
+    # ============================================================
+
+    savePCD: true
+
+    savePCDDirectory: "/Downloads/LOAM/"
+
+
+    # ============================================================
+    # LIDAR SETTINGS
+    # ============================================================
+
+    sensor: velodyne
+
+    # VLP-16
+    N_SCAN: 16
+
+    # 360 degrees / 0.2 degree horizontal spacing
+    Horizon_SCAN: 1800
+
+    downsampleRate: 1
+
+    # Match simulated VLP-16-style sensor
+    lidarMinRange: 1.0
+
+    lidarMaxRange: 100.0
+
+
+    # ============================================================
+    # IMU SETTINGS
+    # ============================================================
+
+    imuAccNoise: 0.00297
+
+    imuGyrNoise: 0.00127
+
+    imuAccBiasN: 4.01e-05
+
+    imuGyrBiasN: 1.41e-06
+
+    imuGravity: 9.805
+
+    imuRPYWeight: 0.01
+
+
+    # ============================================================
+    # LIDAR -> IMU EXTRINSICS
+    #
+    # Current simulated mounting:
+    #
+    # LiDAR relative to robot base:
+    # x = 0.424 m
+    # y = 0.000 m
+    # z = 0.387 m
+    #
+    # IMU assumed approximately at base origin.
+    #
+    # Keep this translation convention for your current LIO-SAM
+    # implementation.
+    # ============================================================
+
+    extrinsicTrans:
+      [-0.424, 0.0, -0.387]
+
+    extrinsicRot:
+      [1.0, 0.0, 0.0,
+       0.0, 1.0, 0.0,
+       0.0, 0.0, 1.0]
+
+    extrinsicRPY:
+      [1.0, 0.0, 0.0,
+       0.0, 1.0, 0.0,
+       0.0, 0.0, 1.0]
+
+
+    # ============================================================
+    # LOAM FEATURE EXTRACTION
+    # ============================================================
+
+    edgeThreshold: 1.0
+
+    surfThreshold: 0.1
+
+    edgeFeatureMinValidNum: 10
+
+    surfFeatureMinValidNum: 100
+
+
+    # ============================================================
+    # VOXEL FILTERS
+    # ============================================================
+
+    odometrySurfLeafSize: 0.4
+
+    mappingCornerLeafSize: 0.2
+
+    mappingSurfLeafSize: 0.4
+
+
+    # ============================================================
+    # ROBOT MOTION CONSTRAINTS
+    #
+    # Husky is treated as a planar ground robot.
+    # ============================================================
+
+    z_tollerance: 0.01
+
+    rotation_tollerance: 0.05
+
+
+    # ============================================================
+    # CPU / OPTIMIZATION
+    # ============================================================
+
+    numberOfCores: 4
+
+    mappingProcessInterval: 0.15
+
+
+    # ============================================================
+    # SURROUNDING MAP
+    # ============================================================
+
+    surroundingkeyframeAddingDistThreshold: 1.0
+
+    surroundingkeyframeAddingAngleThreshold: 0.2
+
+    surroundingKeyframeDensity: 2.0
+
+    surroundingKeyframeSearchRadius: 50.0
+
+
+    # ============================================================
+    # LOOP CLOSURE
+    # ============================================================
+
+    loopClosureEnableFlag: true
+
+    loopClosureFrequency: 1.0
+
+    surroundingKeyframeSize: 50
+
+    historyKeyframeSearchRadius: 15.0
+
+    historyKeyframeSearchTimeDiff: 30.0
+
+    historyKeyframeSearchNum: 25
+
+    historyKeyframeFitnessScore: 0.3
+
+
+    # ============================================================
+    # GLOBAL MAP VISUALIZATION
+    # ============================================================
+
+    globalMapVisualizationSearchRadius: 1000.0
+
+    globalMapVisualizationPoseDensity: 0.5
+
+    globalMapVisualizationLeafSize: 0.10
